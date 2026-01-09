@@ -32,7 +32,7 @@ function playRound(humanChoice, computerChoice) {
         if (computerChoice === "rock") {
            console.log("Tie!");
         } else if (computerChoice === "paper") {
-             console.log("You lose!");
+            console.log("You lose!");
             computerScore++;
         } else {
         //scissors
@@ -54,9 +54,10 @@ function playRound(humanChoice, computerChoice) {
     } 
 }
 
+ let humanScore = 0;
+ let computerScore = 0;
+
 function playGame() {
-    let humanScore = 0,
-    computerScore = 0;
 
     let humanChoice;
     let computerChoice;
