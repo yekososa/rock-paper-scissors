@@ -15,14 +15,14 @@ let humanScore = 0;
 let computerScore = 0;
 
 function playGame() {
-  if (humanScore + computerScore < 5) return;
-
-  if (humanScore > computerScore) {
-    console.log("You've beat that filthy clanker!");
-  } else if (computerScore < humanScore) {
-    console.log("Succumb to your master");
-  } else {
-    console.log("Tie game!");
+  if (humanScore >= 5 || computerScore >= 5) {
+    if (humanScore > computerScore) {
+      console.log("You've beat that filthy clanker!");
+    } else if (computerScore < humanScore) {
+      console.log("Succumb to your master");
+    } else {
+      console.log("Tie game!");
+    }
   }
 }
 
@@ -35,6 +35,8 @@ buttons.forEach((b) => {
     let compDiv = document.querySelector(".computer");
     let playerDiv = document.querySelector(".player");
     let resultDiv = document.querySelector(".result");
+    let pScore = document.querySelector(".playerScore");
+    let cpuScore = document.querySelector(".cpuScore");
 
     compDiv.textContent = `Computer chose: ${computerChoice}`;
     playerDiv.textContent = `Player chose: ${humanChoice}`;
@@ -75,6 +77,8 @@ buttons.forEach((b) => {
       }
     }
 
+    cpuScore.textContent = `Computer Score: ${computerScore}`
+    pScore.textContent = `Player Score: ${humanScore}`
     playGame();
   });
 });
