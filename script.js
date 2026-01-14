@@ -1,81 +1,80 @@
-
-function getHumanChoice() {
-    return prompt("Enter a choice: ").toLowerCase();
-}
-
 function getComputerChoice() {
-    // get number 0-2
-    let val = Math.floor(Math.random()*3); 
+  // get number 0-2
+  let val = Math.floor(Math.random() * 3);
 
-    if (val == 0) {
-        return "rock";
-    } else if (val == 2) {
-        return "paper";
-    } else {
-        return "scissors";
-    }
+  if (val == 0) {
+    return "rock";
+  } else if (val == 2) {
+    return "paper";
+  } else {
+    return "scissors";
+  }
 }
 
-function playRound(humanChoice, computerChoice) {
-    if (humanChoice === "paper") {
-        if (computerChoice === "rock") {
-            console.log("You win!");    
-            humanScore++;
-        } else if (computerChoice === "paper") {
-              console.log("Tie!");
-        } else {
-        //scissors
-           console.log("You lose!");
-            computerScore++;
-        }
-    } else if (humanChoice === "rock") {
-        if (computerChoice === "rock") {
-           console.log("Tie!");
-        } else if (computerChoice === "paper") {
-            console.log("You lose!");
-            computerScore++;
-        } else {
-        //scissors
-            console.log("You win!");    
-            humanScore++;
-        }
-    } else {
-        //scissors
-        if (computerChoice === "rock") {
-            console.log("You lose!");
-            computerScore++;
-        } else if (computerChoice === "paper") {
-            console.log("You win!");    
-            humanScore++;
-        } else {
-            console.log("Tie!");
-        }
-    
-    } 
-}
-
- let humanScore = 0;
- let computerScore = 0;
+let humanScore = 0;
+let computerScore = 0;
 
 function playGame() {
+  if (humanScore + computerScore < 5) return;
 
-    let humanChoice;
-    let computerChoice;
-
-    for(let i = 0; i < 5; i++) {
-        computerChoice = getComputerChoice();
-        humanChoice = getHumanChoice();
-
-        playRound(humanChoice, computerChoice);
-    }
-
-    if (humanScore > computerScore) {
-        console.log("You've beat that filthy clanker!");
-    } else if (computerScore < humanScore) {
-        console.log("Succumb to your master");
-    } else {
-        console.log("Tie game!");
-    }
+  if (humanScore > computerScore) {
+    console.log("You've beat that filthy clanker!");
+  } else if (computerScore < humanScore) {
+    console.log("Succumb to your master");
+  } else {
+    console.log("Tie game!");
+  }
 }
 
-playGame();
+let buttons = document.querySelectorAll("button");
+buttons.forEach((b) => {
+  b.addEventListener("click", function (event) {
+    let humanChoice = event.target.textContent;
+    let computerChoice = getComputerChoice();
+
+    let compDiv = document.querySelector(".computer");
+    let playerDiv = document.querySelector(".player");
+    let resultDiv = document.querySelector(".result");
+
+    compDiv.textContent = `Computer chose: ${computerChoice}`;
+    playerDiv.textContent = `Player chose: ${humanChoice}`;
+
+    if (humanChoice === "paper") {
+      if (computerChoice === "rock") {
+        resultDiv.textContent = "You win!";
+        humanScore++;
+      } else if (computerChoice === "paper") {
+        resultDiv.textContent = "Tie!";
+      } else {
+        //scissors
+        resultDiv.textContent = "You Lose!";
+
+        computerScore++;
+      }
+    } else if (humanChoice === "rock") {
+      if (computerChoice === "rock") {
+        resultDiv.textContent = "Tie!";
+      } else if (computerChoice === "paper") {
+        resultDiv.textContent = "You Lose!";
+        computerScore++;
+      } else {
+        //scissors
+        resultDiv.textContent = "You win!";
+        humanScore++;
+      }
+    } else {
+      //scissors
+      if (computerChoice === "rock") {
+        resultDiv.textContent = "You Lose!";
+        computerScore++;
+      } else if (computerChoice === "paper") {
+        resultDiv.textContent = "You win!";
+        humanScore++;
+      } else {
+        resultDiv.textContent = "Tie!";
+      }
+    }
+
+    playGame();
+  });
+});
